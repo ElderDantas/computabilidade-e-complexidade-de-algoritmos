@@ -38,24 +38,20 @@ class NFA:
         return bool(current_states & set(self.accept_states))
 
 # Definição do autômato
-states = {'q0', 'q1','q2','q3','q4','q5','q6'}
-alphabet = {'a', 'b'}
+states = {'q0', 'q1', 'q2'}
+alphabet = {'0', '1'}
 transition_function = {
-    'q0': {'a': {'q1'}, 'b': {'q4'}},
-    'q1': {'a': {'q2'}, 'b': {'q0'}},
-    'q2': {'a': {'q3'}, 'b': {'q1'}},
-    'q3': {'b': {'q2'}},
-    'q4': {'a': {'q0'}, 'b': {'q5'}},
-    'q5': {'a': {'q4'}, 'b': {'q6'}},
-    'q6': {'a': {'q5'}, 'b': {'q1'}}
+    'q0': {'0': {'q1'}, '1': {'q0'}},
+    'q1': {'0': {'q1'}, '1': {'q2'}},
+    'q2': {'0': {'q1'}, '0': {'q0'}}
 }
 start_state = 'q0'
-accept_states = {'q3','q6'}
+accept_states = {'q2'}
 
 # Inicializando o AFN
 nfa = NFA(states, alphabet, transition_function, start_state, accept_states)
 
 # Testando o AFN
-test_strings = ['ab', 'bb', 'aaa', 'abab', 'aaabaaabababa','abababaaa']
+test_strings = ['01', '00', '111', '010', '0101','1100', '0110', '000', '101010']
 for string in test_strings:
     print(f"String '{string}' é aceita? {nfa.accept(string)}")
